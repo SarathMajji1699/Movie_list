@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="../static/css/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"
+    integrity=
+"sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww=="
+    crossorigin="anonymous">
+  </script>
+</head>
+<body>
+<table style="background-color:yellow;">
+  <th style="width: 7%;" onclick="sort()"> <b>S.No</b> </th>
+  <th onclick="sortTable(1)"> <b>Movie Names</b> </th>
+  <th colspan="2" onclick="sortTable(2)"> <b>Check</b> </th>
+  <tr>
+    <td colspan=4 style="text-align: center; cursor: pointer;"><span id="text">Click <b>+</b> to add the movie to the above list</span> <span
+        id="plus" class="fa fa-plus fa-lg" style="float: right; background-color: green;"></span>
+      <input type="text" id="moviename" name="moviename"
+        style="border: 2px solid black; border-radius: 7px; display: none; width: 50%;" />
+      <input id="add" type="submit" class="btn btn-dark btn-sm" value="Add"
+        style="margin-left: 3%; display: none; width: 15%;" />
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  document.getElementById("plus").onclick = function () {
+    document.getElementById("moviename").style.display = "inline";
+    document.getElementById("moviename").focus();
+    document.getElementById("add").style.display = "inline";
+    document.getElementById("text").style.display = "none";
+  }
+  document.getElementById("add").onclick = function () {
+    var name = document.getElementById('moviename').value;
+    window.location.href = "{{ url_for( "mladd", aname = "mname") }}".replace("mname", name);
+  }
+</script>
+
+</body>
+</html>

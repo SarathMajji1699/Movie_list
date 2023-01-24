@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movies List</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="../static/css/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/font-awesome/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"
+    integrity=
+"sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww=="
+    crossorigin="anonymous">
+  </script>
+  <style>
+    body {
+      background-image: url("../static/background.jpg");
+      /* background-image: url("https://png.pngtree.com/background/20210714/original/pngtree-abstract-cool-red-technology-background-digital-futuristic-picture-image_1209762.jpg"); */
+      /* background-size: cover; */
+      /* height: 100%; */
+      background-position: center;
+      background-repeat: repeat;
+      /* overflow-y: auto; */
+    }
+
+    body::-webkit-scrollbar {
+  width: 7px;               /* width of the entire scrollbar */
+  /* display: none; */
+  }
+  body::-webkit-scrollbar-track {
+    background: orange;        /* color of the tracking area */
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: blue;    /* color of the scroll thumb */
+    border-radius: 25px;       /* roundness of the scroll thumb */
+    border: 2px solid red;  /* creates padding around scroll thumb */
+  }
+
+  mark.a0 {
+    color: black;
+    padding: 5px;
+    background: greenyellow;
+  }
+
+  mark.a1 {
+    color: black;
+    padding: 5px;
+    background: cyan;
+  }
+
+  mark.a2 {
+    color: black;
+    padding: 5px;
+    background: red;
+  }
+
+  mark.a3 {
+    color: white;
+    padding: 5px;
+    background: green;
+  }
+
+  mark.a4 {
+    color: black;
+    padding: 5px;
+    background: pink;
+  }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 5%;
+      opacity: 85%;
+    }
+
+    th {
+      border: 3px solid #9900ff;
+      /* border-left: 3px solid #9900ff;
+      border-right: 3px solid #9900ff; */
+      text-align: left;
+      padding: 8px;
+      color: white;
+      background-color: #4CAF50;
+    }
+
+    th {
+      text-align: center;
+      background-color: #ff4d4d;
+      color: white;
+    }
+
+    th:hover {
+      background-color: black;
+    }
+
+    /* td:hover {
+      background-color: #66ffff;
+      color: black;
+    } */
+    td {
+      border: 3px solid #9900ff;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even) {
+  background-color: #66ff33;
+  }
+  tr:nth-child(even):hover {
+background-color: cyan;
+}
+
+  tr:nth-child(odd) {
+background-color: #ffff99;
+}
+tr:nth-child(odd):hover {
+background-color: #ff99ff;
+}
+
+    h1 {
+      text-align: center;
+      font-family: arial, sans-serif;
+      margin-top: 5%;
+    }
+
+    #plus:hover {
+      color: red;
+    }
+
+    .header-border {
+      background-color: red;
+      top: 55px;
+      height: 7px;
+      width: 100%;
+    }
+
+    #Navbar ul {
+      margin-top: 20px;
+    }
+
+    .message {
+      font-size: 20px;
+      color: white;
+    }
+    #moviename {
+      display: block;
+    }
+    #add {
+      display: block;
+      width: 10%;
+    }
+
+    #bg {
+      height: 35px;
+    }
+
+    .search-container {
+      float: right;
+      }
+      #search, #searchbtn {
+      /* float: right; */
+      display: inline;
+      text-align: left;
+      width: 85%;
+      margin: 0;
+      padding: 5px;
+      margin-top: 8px;
+      }
+      #search {
+      border: 1px solid #ccc;
+      /* padding: 6px; */
+      /* margin-top: 8px; */
+      font-size: 16px;
+      display: inline;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      }
+      #searchbtn {
+        width: 15%;
+        float: right;
+        display: inline;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+
+
+    @media (min-width: 992px) {
+
+      .header-border {
+        background-color: red;
+        top: 55px;
+        height: 7px;
+        width: 100%;
+      }
+
+      #Navbar ul {
+        margin-top: 0;
+      }
+
+      .message {
+        font-size: 35px;
+        color: white;
+      }
+        /*
+      .search-container {
+        overflow: hidden;
+        float: right;
+        margin:0;
+        width: 20%;
+        display: inline-block;
+      }
+      #search {
+        float: right;
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        display: inline;
+      }
+        #searchbtn {
+        float: right;
+        padding: 6px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: #ddd;
+        font-size: 17px;
+        display: inline;
+        border: none;
+        cursor: pointer;
+      }
+
+      #searchbtn:hover {
+        background: #ccc;
+      } */
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      const navbar = document.getElementById("Navbar");
+      if (navbar.classList.contains("show")) {
+        navbar.classList.remove("show");
+      } else {
+        navbar.classList.add("show");
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-dark navbar-expand-md fixed-top" style="background-color: black">
+      <div class="navbar-header">
+      <img id="bg" src="{{ url_for('static', filename='micon.png') }}">&nbsp;
+        <a class="navbar-brand" href="/"><b>Movies List</b></a>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar" onclick="toggleMenu()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="Navbar">
+        <ul class="ml-auto navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/"><span class="fa fa-film fa-lg"></span> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/check"><span class="fa fa-check-circle fa-lg"></span> Check</a>
+          </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about"><span class="fa fa-info fa-lg"></span> About Me</a>
+              </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="fixed-top header-border" style="border-top: 1px solid white; border-bottom: 1px solid white;"></div>
+    <br><br> <br>
+    <div class="search-container">
+    <form>
+        <input id="search" type="text" placeholder="Search...." name="search" />
+      <button id="searchbtn" type="button" onclick="highlight('2');"><span class="fa fa-search"></span></button>
+    </form>
+  </div>
+  <br><br>
+
+  <p>
+    <table id="mlists" class="mlists">
+      <th style="width: 7%;" onclick="sort()"> <b>S.No</b> </th>
+      <th onclick="sortTable(1)"> <b>Movie Names</b> </th>
+      <th colspan="2" onclick="sortTable(2)"> <b>Check</b> </th>
+      {% for row in mlist %}
+      <tr>
+        <td style="text-align: center;">{{row}}</td>
+        {% if mlist[row][2] %}
+        <td style="text-decoration: line-through; cursor: pointer;"
+          ondblclick="window.location.href='{{ url_for( 'moviestrike', smovie = mlist[row][0]) }}';">{{mlist[row][0]}}</td>
+        {% else %}
+        <td style="cursor: pointer;"
+          ondblclick="window.location.href='{{ url_for( 'moviestrike', smovie = mlist[row][0]) }}';">{{mlist[row][0]}}</td>
+        {%endif%}
+        {% if mlist[row][1] %}
+        <td style="text-align: center; width: 7%; cursor: pointer;"
+          onclick="window.location.href='{{ url_for( 'moviecheck', cmovie = mlist[row][0]) }}';">
+          <span class="fa fa-check fa-lg"></span></td>
+        {% else %}
+        <td style="text-align: center; width: 7%; cursor: pointer;"
+            onclick="window.location.href='{{ url_for( 'moviecheck', cmovie = mlist[row][0]) }}';">
+            <span class="fa fa-times fa-lg"></span>
+        </td>
+        {%endif%}
+        <td style="text-align: center; width: 7%; cursor: pointer;"
+          onclick="window.location.href='{{ url_for( 'mldelete', dname = mlist[row][0]) }}';"><span
+            class="fa fa-trash fa-lg"></span></td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan=4 style="text-align: center; cursor: pointer;"><span id="text">Click <b>+</b> to add the movie to the above list</span> <span
+            id="plus" class="fa fa-plus fa-lg" style="float: right; margin-right: 1.5%; margin-top: 7px;"></span>
+          <input type="text" id="moviename" name="moviename"
+            style="border: 2px solid black; border-radius: 7px; display: none; width: 50%;" />
+          <input id="add" type="submit" class="btn btn-dark btn-sm" value="Add"
+            style="margin-left: 3%; display: none; width: 15%;" />
+        </td>
+      </tr>
+    </table>
+  </p>
+    <br>
+    <h1 class="message"> <b> {{msg}} </b> </h1>
+    <br><br><br><br>
+</div>
+    <script type="text/javascript">
+      document.getElementById("plus").onclick = function () {
+        document.getElementById("moviename").style.display = "inline";
+        document.getElementById("add").style.display = "inline";
+        document.getElementById("text").style.display = "none";
+      }
+      document.getElementById("add").onclick = function () {
+        var name = document.getElementById('moviename').value;
+        window.location.href = "{{ url_for( "mladd", aname = "mname") }}".replace("mname", name);
+      }
+    </script>
+    <script type="text/javascript">
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("mlists");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc";
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 2); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+function sort() {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("mlists");
+switching = true;
+//Set the sorting direction to ascending:
+dir = "asc";
+/*Make a loop that will continue until
+no switching has been done:*/
+while (switching) {
+//start by saying: no switching is done:
+switching = false;
+rows = table.rows;
+/*Loop through all table rows (except the
+first, which contains table headers):*/
+for (i = 1; i < (rows.length - 2); i++) {
+//start by saying there should be no switching:
+shouldSwitch = false;
+/*Get the two elements you want to compare,
+one from current row and one from the next:*/
+x = rows[i].getElementsByTagName("TD")[0];
+y = rows[i + 1].getElementsByTagName("TD")[0];
+/*check if the two rows should switch place,
+based on the direction, asc or desc:*/
+if (dir == "asc") {
+  if (Number(x.innerHTML) > Number(y.innerHTML)) {
+    //if so, mark as a switch and break the loop:
+    shouldSwitch= true;
+    break;
+  }
+} else if (dir == "desc") {
+  if (Number(x.innerHTML) < Number(y.innerHTML)) {
+    //if so, mark as a switch and break the loop:
+    shouldSwitch = true;
+    break;
+  }
+}
+}
+if (shouldSwitch) {
+/*If a switch has been marked, make the switch
+and mark that a switch has been done:*/
+rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+switching = true;
+//Each time a switch is done, increase this count by 1:
+switchcount ++;
+} else {
+/*If no switching has been done AND the direction is "asc",
+set the direction to "desc" and run the while loop again.*/
+if (switchcount == 0 && dir == "asc") {
+  dir = "desc";
+  switching = true;
+}
+}
+}
+}
+    </script>
+<script type="text/javascript">
+
+function highlight(param) {
+
+// Select the whole paragraph
+var ob = new Mark(document.querySelector(".mlists"));
+
+// First unmark the highlighted word or letter
+ob.unmark();
+
+// Highlight letter or word
+ob.mark(
+document.getElementById("search").value,
+{ className: 'a' + param }
+);
+}
+</script>
+</body>
+
+</html>
